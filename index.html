@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Centre d'Imagerie Benameur</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1 id="title">Centre d'Imagerie Benameur</h1>
+      <p id="subtitle">Radiologie et imagerie médicale à Oran</p>
+      <nav>
+        <a href="#about">À propos</a>
+        <a href="#services">Services</a>
+        <a href="#doctor">Dr. Benameur</a>
+        <a href="#contact">Contact</a>
+        <select id="language-switcher">
+          <option value="fr">Français</option>
+          <option value="ar">العربية</option>
+        </select>
+      </nav>
+    </div>
+  </header>
+
+  <section id="about" class="section">
+    <div class="container">
+      <h2>À propos du centre</h2>
+      <p>
+        Situé au cœur d’Oran, le Centre d’Imagerie Benameur offre des services d’imagerie de pointe dans un environnement moderne, sécurisé et confortable.
+        Notre mission est de fournir des diagnostics rapides, précis et accessibles à tous.
+      </p>
+    </div>
+  </section>
+
+  <section id="services" class="section gray">
+    <div class="container">
+      <h2>Nos services</h2>
+      <ul class="services-list">
+        <li>Radiologie générale (rayons X)</li>
+        <li>Échographie</li>
+        <li>Scanner (CT Scan)</li>
+        <li>IRM (Imagerie par Résonance Magnétique)</li>
+        <li>Mammographie</li>
+        <li>Densitométrie osseuse</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="doctor" class="section">
+    <div class="container">
+      <h2>À propos du Dr. Cherif Benameur</h2>
+      <p>
+        Le Dr. Cherif Benameur est un radiologue expérimenté, passionné par la technologie médicale et engagé à fournir des diagnostics précis et un suivi personnalisé.
+        Grâce à ses années d'expérience, il assure des soins de qualité et une écoute attentive à chaque patient.
+      </p>
+    </div>
+  </section>
+
+  <section id="contact" class="section gray">
+    <div class="container">
+      <h2>Contactez-nous</h2>
+      <form id="contact-form">
+        <label for="name">Nom</label>
+        <input type="text" id="name" name="name" required />
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+        <button type="submit">Envoyer</button>
+      </form>
+      <p><strong>Adresse :</strong> 32 Boulevard Hammou Boutlelis, Oran, Algérie</p>
+      <p><strong>Téléphone :</strong> <a href="tel:+213661598132">0661 59 81 32</a></p>
+      <p><strong>Email :</strong> <a href="mailto:cherif.benameur@gmail.com">cherif.benameur@gmail.com</a></p>
+      <div id="map"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Centre d’Imagerie Benameur - Tous droits réservés</p>
+    </div>
+  </footer>
+
+  <script>
+    var map = L.map('map').setView([35.6971, -0.6308], 15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+    L.marker([35.6971, -0.6308]).addTo(map)
+      .bindPopup("Centre d'Imagerie Benameur")
+      .openPopup();
+  </script>
+</body>
+</html>
