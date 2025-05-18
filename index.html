@@ -1,100 +1,145 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Centre d'Imagerie Benameur</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
-  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      transition: direction 0.3s ease;
+    }
+
+    header, section, footer {
+      margin-bottom: 20px;
+    }
+
+    #map {
+      height: 300px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    label, input, textarea, select, button {
+      display: block;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    .rtl {
+      text-align: right;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <div class="container">
-      <h1 id="title">Centre d'Imagerie Benameur</h1>
-      <p id="subtitle">Radiologie et imagerie médicale à Oran</p>
-      <nav>
-        <a href="#about">À propos</a>
-        <a href="#services">Services</a>
-        <a href="#doctor">Dr. Benameur</a>
-        <a href="#contact">Contact</a>
-        <select id="language-switcher">
-          <option value="fr">Français</option>
-          <option value="ar">العربية</option>
-        </select>
-      </nav>
-    </div>
+    <select id="language-switcher">
+      <option value="fr">Français</option>
+      <option value="ar">العربية</option>
+    </select>
+    <h1 id="title">Centre d'Imagerie Benameur</h1>
+    <p id="subtitle">Radiologie et imagerie médicale à Oran</p>
   </header>
 
-  <section id="about" class="section">
-    <div class="container">
-      <h2>À propos du centre</h2>
-      <p>
-        Situé au cœur d’Oran, le Centre d’Imagerie Benameur offre des services d’imagerie de pointe dans un environnement moderne, sécurisé et confortable.
-        Notre mission est de fournir des diagnostics rapides, précis et accessibles à tous.
-      </p>
-    </div>
+  <section>
+    <p id="description">Nous proposons des services de radiologie avancée pour répondre à vos besoins médicaux.</p>
   </section>
 
-  <section id="services" class="section gray">
-    <div class="container">
-      <h2>Nos services</h2>
-      <ul class="services-list">
-        <li>Radiologie générale (rayons X)</li>
-        <li>Échographie</li>
-        <li>Scanner (CT Scan)</li>
-        <li>IRM (Imagerie par Résonance Magnétique)</li>
-        <li>Mammographie</li>
-        <li>Densitométrie osseuse</li>
-      </ul>
-    </div>
+  <section>
+    <h2 id="contact-title">Contact</h2>
+    <form id="contact-form">
+      <label for="name" id="label-name">Nom</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="message" id="label-message">Message</label>
+      <textarea id="message" name="message" required></textarea>
+
+      <button type="submit" id="contact-button">Envoyer</button>
+    </form>
   </section>
 
-  <section id="doctor" class="section">
-    <div class="container">
-      <h2>À propos du Dr. Cherif Benameur</h2>
-      <p>
-        Le Dr. Cherif Benameur est un radiologue expérimenté, passionné par la technologie médicale et engagé à fournir des diagnostics précis et un suivi personnalisé.
-        Grâce à ses années d'expérience, il assure des soins de qualité et une écoute attentive à chaque patient.
-      </p>
-    </div>
-  </section>
-
-  <section id="contact" class="section gray">
-    <div class="container">
-      <h2>Contactez-nous</h2>
-      <form id="contact-form">
-        <label for="name">Nom</label>
-        <input type="text" id="name" name="name" required />
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required />
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
-        <button type="submit">Envoyer</button>
-      </form>
-      <p><strong>Adresse :</strong> 32 Boulevard Hammou Boutlelis, Oran, Algérie</p>
-      <p><strong>Téléphone :</strong> <a href="tel:+213661598132">0661 59 81 32</a></p>
-      <p><strong>Email :</strong> <a href="mailto:cherif.benameur@gmail.com">cherif.benameur@gmail.com</a></p>
-      <div id="map"></div>
-    </div>
+  <section>
+    <h2 id="location-title">Localisation</h2>
+    <div id="map"></div>
   </section>
 
   <footer>
-    <div class="container">
-      <p>&copy; 2025 Centre d’Imagerie Benameur - Tous droits réservés</p>
-    </div>
+    <p id="footer-text">© 2025 Centre d'Imagerie Benameur - Tous droits réservés</p>
   </footer>
 
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
-    var map = L.map('map').setView([35.6971, -0.6308], 15);
+    // Initialiser la carte avec Leaflet et OpenStreetMap
+    const map = L.map('map').setView([35.6971, -0.6308], 15);
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
+
     L.marker([35.6971, -0.6308]).addTo(map)
-      .bindPopup("Centre d'Imagerie Benameur")
+      .bindPopup('Centre d\'Imagerie Benameur')
       .openPopup();
+
+    // Traductions
+    const translations = {
+      fr: {
+        title: "Centre d'Imagerie Benameur",
+        subtitle: "Radiologie et imagerie médicale à Oran",
+        description: "Nous proposons des services de radiologie avancée pour répondre à vos besoins médicaux.",
+        contactTitle: "Contact",
+        labelName: "Nom",
+        labelMessage: "Message",
+        contactButton: "Envoyer",
+        locationTitle: "Localisation",
+        footerText: "© 2025 Centre d'Imagerie Benameur - Tous droits réservés",
+        messageSent: "Message envoyé. Merci de nous avoir contactés !"
+      },
+      ar: {
+        title: "مركز التصوير الطبي بن عمور",
+        subtitle: "الأشعة الطبية والتصوير في وهران",
+        description: "نحن نقدم خدمات الأشعة المتقدمة لتلبية احتياجاتكم الطبية.",
+        contactTitle: "اتصل بنا",
+        labelName: "الاسم",
+        labelMessage: "الرسالة",
+        contactButton: "إرسال",
+        locationTitle: "الموقع",
+        footerText: "© 2025 مركز التصوير الطبي بن عمور - جميع الحقوق محفوظة",
+        messageSent: "تم إرسال الرسالة. شكرًا لتواصلكم معنا!"
+      }
+    };
+
+    document.getElementById('language-switcher').addEventListener('change', function () {
+      const lang = this.value;
+      const t = translations[lang];
+      const body = document.body;
+
+      body.dir = lang === "ar" ? "rtl" : "ltr";
+      body.className = lang === "ar" ? "rtl" : "";
+
+      document.getElementById("title").textContent = t.title;
+      document.getElementById("subtitle").textContent = t.subtitle;
+      document.getElementById("description").textContent = t.description;
+      document.getElementById("contact-title").textContent = t.contactTitle;
+      document.getElementById("label-name").textContent = t.labelName;
+      document.getElementById("label-message").textContent = t.labelMessage;
+      document.getElementById("contact-button").textContent = t.contactButton;
+      document.getElementById("location-title").textContent = t.locationTitle;
+      document.getElementById("footer-text").textContent = t.footerText;
+
+      // Mettre à jour le message du formulaire
+      document.getElementById("contact-form").onsubmit = function (e) {
+        e.preventDefault();
+        alert(t.messageSent);
+      };
+    });
+
+    // Message par défaut en français
+    document.getElementById("contact-form").addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert(translations.fr.messageSent);
+    });
   </script>
 </body>
 </html>
