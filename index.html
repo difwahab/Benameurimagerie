@@ -1,125 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Centre d'Imagerie Benameur</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <style>
-    :root {
-      --primary: #005baa;
-      --secondary: #0079c1;
-      --bg: #f0f4f8;
-      --text: #333;
-    }
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
-    header {
-      background: var(--primary);
-      color: white;
-      padding: 20px;
-      text-align: center;
-      position: relative;
-    }
-    #language-switcher {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      padding: 5px;
-      font-size: 1rem;
-      border-radius: 5px;
-      border: none;
-      cursor: pointer;
-    }
-    nav {
-      background: var(--secondary);
-      display: flex;
-      justify-content: center;
-      padding: 10px;
-    }
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: color 0.3s;
-    }
-    nav a:hover {
-      color: #a8d0ff;
-    }
-    section {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    h2 {
-      color: var(--primary);
-      margin-bottom: 15px;
-    }
-    #map {
-      height: 320px;
-      border-radius: 10px;
-      margin-top: 15px;
-    }
-    form {
-      background: white;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    label {
-      font-weight: 600;
-      margin-bottom: 5px;
-      display: block;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-      font-family: inherit;
-      resize: vertical;
-    }
-    button {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 14px;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: background 0.3s;
-      width: 100%;
-    }
-    button:hover {
-      background: #003f7d;
-    }
-    footer {
-      background: #ddd;
-      text-align: center;
-      padding: 15px 10px;
-      font-size: 0.9rem;
-      color: #555;
-    }
-    .rtl {
-      direction: rtl;
-      text-align: right;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
-    <select id="language-switcher" aria-label="Changer la langue">
+    <select id="language-switcher">
       <option value="fr">Français</option>
       <option value="ar">العربية</option>
     </select>
@@ -136,128 +25,36 @@
 
   <section id="services">
     <h2 id="services-title">Nos Services</h2>
-    <p id="services-desc">IRM, Scanner, échographie, radiologie conventionnelle et imagerie interventionnelle avec équipements de dernière génération.</p>
+    <p>IRM, Scanner, échographie, radiologie conventionnelle et imagerie interventionnelle.</p>
   </section>
 
   <section id="team">
     <h2 id="team-title">Notre Équipe</h2>
-    <p id="team-desc">Le Dr. Cherif Benameur et son équipe de radiologues spécialisés mettent leur expertise au service de votre santé.</p>
+    <p>Le Dr. Cherif Benameur et son équipe de radiologues spécialisés au service de votre santé.</p>
   </section>
 
   <section id="contact">
-    <h2 id="contact-title">Contact</h2>
-    <form id="contact-form" aria-label="Formulaire de contact">
-      <label for="name" id="label-name">Nom</label>
-      <input type="text" id="name" name="name" required />
-
-      <label for="message" id="label-message">Message</label>
-      <textarea id="message" name="message" rows="5" required></textarea>
-
-      <button type="submit" id="contact-button">Envoyer</button>
+    <h2>Contact</h2>
+    <form id="contact-form">
+      <label for="name">Nom</label>
+      <input type="text" id="name" name="name" required>
+      
+      <label for="message">Message</label>
+      <textarea id="message" name="message" required></textarea>
+      
+      <button type="submit">Envoyer</button>
     </form>
   </section>
 
   <section id="location">
-    <h2 id="location-title">Localisation</h2>
-    <div id="map" role="application" aria-label="Carte de localisation"></div>
+    <h2>Localisation</h2>
+    <div id="map"></div>
   </section>
 
   <footer>
-    <p id="footer-text">© 2025 Centre d'Imagerie Benameur - Tous droits réservés</p>
+    <p>© 2025 Centre d'Imagerie Benameur - Tous droits réservés</p>
   </footer>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script>
-    // Initialisation de la carte Leaflet OpenStreetMap
-    const map = L.map('map').setView([35.6971, -0.6308], 15);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-    L.marker([35.6971, -0.6308]).addTo(map).bindPopup("Centre d'Imagerie Benameur").openPopup();
-
-    // Traductions
-    const translations = {
-      fr: {
-        title: "Centre d'Imagerie Benameur",
-        subtitle: "Radiologie et imagerie médicale à Oran",
-        navServices: "Services",
-        navTeam: "Équipe",
-        navContact: "Contact",
-        navLocation: "Localisation",
-        servicesTitle: "Nos Services",
-        servicesDesc: "IRM, Scanner, échographie, radiologie conventionnelle et imagerie interventionnelle avec équipements de dernière génération.",
-        teamTitle: "Notre Équipe",
-        teamDesc: "Le Dr. Cherif Benameur et son équipe de radiologues spécialisés mettent leur expertise au service de votre santé.",
-        contactTitle: "Contact",
-        labelName: "Nom",
-        labelMessage: "Message",
-        contactButton: "Envoyer",
-        locationTitle: "Localisation",
-        footerText: "© 2025 Centre d'Imagerie Benameur - Tous droits réservés",
-        alertSent: "Message envoyé. Merci de nous avoir contactés !"
-      },
-      ar: {
-        title: "مركز التصوير الطبي بن عمور",
-        subtitle: "الأشعة الطبية والتصوير في وهران",
-        navServices: "خدماتنا",
-        navTeam: "فريقنا",
-        navContact: "اتصل بنا",
-        navLocation: "الموقع",
-        servicesTitle: "خدماتنا",
-        servicesDesc: "الرنين المغناطيسي، الماسح الضوئي، الأشعة الصوتية، الأشعة التقليدية، والتصوير التدخلي بأحدث الأجهزة.",
-        teamTitle: "فريقنا",
-        teamDesc: "الدكتور شريف بن عامر وفريقه من أطباء الأشعة المتخصصين في خدمتكم.",
-        contactTitle: "اتصل بنا",
-        labelName: "الاسم",
-        labelMessage: "الرسالة",
-        contactButton: "إرسال",
-        locationTitle: "الموقع",
-        footerText: "© 2025 مركز التصوير الطبي بن عامر - جميع الحقوق محفوظة",
-        alertSent: "تم إرسال الرسالة. شكرًا لتواصلكم معنا!"
-      }
-    };
-
-    const switcher = document.getElementById('language-switcher');
-
-    function updateLanguage(lang) {
-      const t = translations[lang];
-      document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
-      if(lang === 'ar') {
-        document.body.classList.add('rtl');
-      } else {
-        document.body.classList.remove('rtl');
-      }
-
-      document.getElementById('title').textContent = t.title;
-      document.getElementById('subtitle').textContent = t.subtitle;
-      document.getElementById('nav-services').textContent = t.navServices;
-      document.getElementById('nav-team').textContent = t.navTeam;
-      document.getElementById('nav-contact').textContent = t.navContact;
-      document.getElementById('nav-location').textContent = t.navLocation;
-      document.getElementById('services-title').textContent = t.servicesTitle;
-      document.getElementById('services-desc').textContent = t.servicesDesc;
-      document.getElementById('team-title').textContent = t.teamTitle;
-      document.getElementById('team-desc').textContent = t.teamDesc;
-      document.getElementById('contact-title').textContent = t.contactTitle;
-      document.getElementById('label-name').textContent = t.labelName;
-      document.getElementById('label-message').textContent = t.labelMessage;
-      document.getElementById('contact-button').textContent = t.contactButton;
-      document.getElementById('location-title').textContent = t.locationTitle;
-      document.getElementById('footer-text').textContent = t.footerText;
-
-      // Mise à jour de la fonction submit du formulaire
-      document.getElementById('contact-form').onsubmit = function(e) {
-        e.preventDefault();
-        alert(t.alertSent);
-      };
-    }
-
-    switcher.addEventListener('change', () => {
-      updateLanguage(switcher.value);
-    });
-
-    // Initialisation en français
-    updateLanguage('fr');
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
