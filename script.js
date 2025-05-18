@@ -1,30 +1,23 @@
-
-function initMap() {
-  const location = { lat: 35.6971, lng: -0.6308 };
-  const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 15,
-    center: location,
-  });
-  const marker = new google.maps.Marker({
-    position: location,
-    map: map,
-  });
-}
-
-document.getElementById('contact-form').addEventListener('submit', function (e) {
-  e.preventDefault();
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+  event.preventDefault();
   alert('Message envoyé. Merci de nous avoir contactés !');
 });
 
-document.getElementById('language-switcher').addEventListener('change', function () {
+// Initialisation de la carte Leaflet OpenStreetMap
+const map = L.map('map').setView([35.6971, -0.6308], 15);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+L.marker([35.6971, -0.6308]).addTo(map).bindPopup("Centre d'Imagerie Benameur");
+
+// Switch de langue
+const translations = {
+  fr: { title: "Centre d'Imagerie Benameur", subtitle: "Radiologie à Oran" },
+  ar: { title: "مركز التصوير الطبي بن عمور", subtitle: "الأشعة الطبية في وهران" }
+};
+
+document.getElementById('language-switcher').addEventListener('change', function() {
   const lang = this.value;
-  if (lang === "ar") {
-    document.body.dir = "rtl";
-    document.getElementById("title").textContent = "مركز التصوير الطبي بن عمور";
-    document.getElementById("subtitle").textContent = "الأشعة الطبية والتصوير في وهران";
-  } else {
-    document.body.dir = "ltr";
-    document.getElementById("title").textContent = "Centre d'Imagerie Benameur";
-    document.getElementById("subtitle").textContent = "Radiologie et imagerie médicale à Oran";
-  }
+  document.getElementById('title').textContent = translations[lang].title;
+  document.getElementById('subtitle').textContent = translations[lang].subtitle;
 });
